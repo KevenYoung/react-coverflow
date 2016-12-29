@@ -36,11 +36,16 @@ class Coverflow extends Component {
     super(props);
 
     this.state = {
-      current: this._center(),
-      move: 0,
+      current: 0, //this._center(),
+      move: this._center() * (this.props.imageWidth * this.props.imageScale), //0,
       width: this.props.width || 'auto',
-      height: this.props.height || 'auto'
+      height: this.props.height || 'auto',
+      imageWidth: this.props.imageWidth,
+      imageScale: this.props.imageScale,
+      baseWidth: this.props.imageWidth * this.props.imageScale
     };
+
+    this._handleGoFigure = this._handleGoFigure.bind(this);
   }
 
   componentDidMount() {
@@ -84,7 +89,8 @@ class Coverflow extends Component {
       width: ReactDOM.findDOMNode(this).offsetWidth,
       height: ReactDOM.findDOMNode(this).offsetHeight
     };
-    var baseWidth = state.width / (displayQuantityOfSide * 2 + 1);
+    // var baseWidth = state.width / (displayQuantityOfSide * 2 + 1);
+    let baseWidth = this.state.baseWidth;
     var active = active || this.props.active;
     if (typeof active === 'number' && ~~active < length) {
       active = ~~active;
@@ -111,6 +117,12 @@ class Coverflow extends Component {
              >
           <div className={styles.coverflow}>
             <div className={styles.preloader}></div>
+            <div className={styles.info}>
+              {this._renderInfoNodes()}
+            </div>
+            <div className={styles.indicator}>
+              {this._renderIndicator()}
+            </div>
             <div className={styles.stage} ref="stage">
                 {this._renderFigureNodes()}
             </div>
@@ -118,8 +130,9 @@ class Coverflow extends Component {
               this.props.navigation &&
               (
                 <div className={styles.actions}>
-                  <button type="button" className={styles.button} onClick={ this._handlePrevFigure.bind(this) }>Previous</button>
-                  <button type="button" className={styles.button} onClick={ this._handleNextFigure.bind(this) }>Next</button>
+                  {/*<button type="button" className={styles.button} onClick={ this._handlePrevFigure.bind(this) }>Previous</button>
+                  <button type="button" className={styles.button} onClick={ this._handleNextFigure.bind(this) }>Next</button>*/}
+                  <div className={styles.arrowDiv}  onClick={ this._handleNextFigure.bind(this) }></div>
                 </div>
               )
             }
@@ -148,7 +161,8 @@ class Coverflow extends Component {
     const {displayQuantityOfSide} = this.props;
     const {width} = this.state;
     let style = {};
-    let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+    // let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+    let baseWidth = this.state.baseWidth;
     let length = React.Children.count(this.props.children);
     let offset = length % 2 === 0 ? -width/10 : 0;
     // Handle opacity
@@ -157,24 +171,43 @@ class Coverflow extends Component {
     opacity = depth === 2 ? 0.92 : opacity;
     opacity = depth === 3 ? 0.9 : opacity;
     opacity = current === index ? 1 : opacity;
+    offset -= 480;
     // Handle translateX
     if (index === current) {
       style['width'] = `${baseWidth}px`;
-      style['transform'] = `translateX(${this.state.move + offset}px) scale(1.2)`;
-      style['zIndex'] = `${10 - depth}`;
+      style['transform'] = `translateX(${this.state.move + offset + 320}px) scale(1)`;
+      style['zIndex'] = `${10 + depth}`;
       style['opacity'] = opacity;
     } else if (index < current) {
       // Left side
       style['width'] = `${baseWidth}px`;
-      style['transform'] = `translateX(${this.state.move + offset}px) rotateY(40deg)`;
-      style['zIndex'] = `${10 - depth}`;
-      style['opacity'] = opacity;
+      style['transform'] = `translateX(${this.state.move + offset}px) rotateY(0deg) scale(0.8)`;
+      style['zIndex'] = `${10 + depth}`;
+      if (index < current - 1)
+        style['opacity'] = 0;
+      else
+        style['opacity'] = opacity;
     } else if (index > current) {
       // Right side
       style['width'] = `${baseWidth}px`;
-      style['transform'] = ` translateX(${this.state.move + offset}px) rotateY(-40deg)`;
-      style['zIndex'] = `${10 - depth}`;
-      style['opacity'] = opacity;
+      style['transform'] = ` translateX(${this.state.move + offset}px) rotateY(0deg) scale(0.8)`;
+      style['zIndex'] = `${10 + depth}`;
+      if (index > current + 1)
+        style['opacity'] = 0;
+      else
+        style['opacity'] = opacity;
+    }
+    return style;
+  }
+
+  _handleInfoStyle(index, current) {
+    let style = {};
+    if (index === current) {
+      style['transform'] = `translateY(0px)`;
+      style['opacity'] = 1;
+    } else {
+      style['transform'] = `translateY(${-300}px)`;
+      style['opacity'] = 0;
     }
     return style;
   }
@@ -197,7 +230,8 @@ class Coverflow extends Component {
     } else {
       const {displayQuantityOfSide} = this.props;
       const {width} = this.state;
-      let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+      // let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+      let baseWidth = this.state.baseWidth;
       let distance = this._center() - index;
       let move = distance * baseWidth;
       this.setState({current: index, move: move});
@@ -228,6 +262,46 @@ class Coverflow extends Component {
     return figureNodes;
   }
 
+  _renderInfoNodes() {
+    let infoNodes = React.Children.map(this.props.children, (child, index) => {
+      let title = (child.props['data-title']?child.props['data-title']:'');
+      let desc = (child.props['data-desc']?child.props['data-desc']:'');
+      let style = this._handleInfoStyle(index, this.state.current);
+      return (
+        <div className={styles.infoItem} style={style}>
+          <div className={styles.infoTitle}>
+            {title}
+          </div>
+          <div className={styles.infoDesc}>
+            {desc}
+          </div>
+        </div>
+      );
+    });
+    return infoNodes;
+  }
+
+  _renderIndicator() {
+    let indicatorNodes = React.Children.map(this.props.children, (child, index) => {
+      let className = '';
+      if (this.state.current === index)
+        className = styles.current;
+      return (
+        <li
+          className={className}
+          onClick={() => this._handleGoFigure(index)}
+          >
+          <button>{index}</button>
+        </li>
+      );
+    });
+    return (
+      <ul>
+        {indicatorNodes}
+      </ul>
+    );
+  }
+
   _removePointerEvents() {
     this.refs.stage.style['pointerEvents'] = 'auto';
   }
@@ -236,12 +310,16 @@ class Coverflow extends Component {
     const {displayQuantityOfSide} = this.props;
     const {width} = this.state;
     let current = this.state.current;
-    let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+    // let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+    let baseWidth = this.state.baseWidth;
     let distance = this._center() - (current - 1);
     let move = distance * baseWidth;
 
     if (current - 1 >= 0) {
       this.setState({ current: current - 1, move: move });
+      TOUCH.lastMove = move;
+    } else {
+      this.setState({ current: this.props.children.length - 1, move: (this._center() - (this.props.children.length - 1)) * baseWidth });
       TOUCH.lastMove = move;
     }
   }
@@ -250,14 +328,26 @@ class Coverflow extends Component {
     const {displayQuantityOfSide} = this.props;
     const {width} = this.state;
     let current = this.state.current;
-    let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+    // let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+    let baseWidth = this.state.baseWidth;
     let distance = this._center() - (current + 1);
     let move = distance * baseWidth;
 
     if (current + 1 < this.props.children.length) {
       this.setState({ current: current + 1, move: move });
       TOUCH.lastMove = move;
+    } else {
+      this.setState({ current: 0, move: this._center() * baseWidth });
+      TOUCH.lastMove = move;
     }
+  }
+
+  _handleGoFigure(index) {
+    let baseWidth = this.state.baseWidth;
+    let distance = this._center() - index;
+    let move = distance * baseWidth;
+    this.setState({ current: index, move: move });
+    TOUCH.lastMove = move;
   }
 
   _handleWheel(e) {
@@ -294,7 +384,8 @@ class Coverflow extends Component {
 
     let clientX = e.nativeEvent.touches[0].clientX;
     let lastX = TOUCH.lastX;
-    let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+    // let baseWidth = width / (displayQuantityOfSide * 2 + 1);
+    let baseWidth = this.state.baseWidth;
     let move = clientX - lastX;
     let totalMove = TOUCH.lastMove - move;
     let sign = Math.abs(move) / move;
@@ -324,7 +415,7 @@ Coverflow.propTypes = {
 Coverflow.defaultProps = {
   navigation: false,
   enableHeading: true,
-  enableScroll: true,
+  enableScroll: false,
   clickable: true
 };
 

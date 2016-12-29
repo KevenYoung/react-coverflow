@@ -10,42 +10,43 @@ var fn = () => {
 ReactDOM.render(
 
   <Coverflow
-    width={960}
+    width={980}
     height={480}
+    imageWidth={500}
+    imageScale={0.8}
     displayQuantityOfSide={2}
     navigation={true}
     enableHeading={false}
     clickable={true}
     >
-    <img src='images/album-1.png' alt='Album one' data-action={fn} />
-    <img src='images/album-2.png' alt='Album two' data-action="http://passer.cc"/>
-    <img src='images/album-3.png' alt='Album three' data-action="https://doce.cc/"/>
-    <img src='images/album-4.png' alt='Album four' data-action="http://tw.yahoo.com"/>
-    <img src='images/album-5.png' alt='Album five' data-action="http://www.bbc.co.uk"/>
-    <img src='images/album-6.png' alt='Album six' data-action="https://medium.com"/>
-    <img src='images/album-7.png' alt='Album seven' data-action="http://www.google.com"/>
-    <img src='images/album-1.png' alt='Album one' data-action="https://facebook.github.io/react/"/>
-    <img src='images/album-2.png' alt='Album two' data-action="http://passer.cc"/>
-    <img src='images/album-3.png' alt='Album three' data-action="https://doce.cc/"/>
-    <img src='images/album-4.png' alt='Album four' data-action="http://tw.yahoo.com"/>
-    <img src='images/album-5.png' alt='Album five' data-action="http://www.bbc.co.uk"/>
-    <img src='images/album-6.png' alt='Album six' data-action="https://medium.com"/>
-    <img src='images/album-7.png' alt='Album seven' data-action="http://www.google.com"/>
-    <img src='images/album-1.png' alt='Album one' data-action="https://facebook.github.io/react/"/>
-    <img src='images/album-2.png' alt='Album two' data-action="http://passer.cc"/>
-    <img src='images/album-3.png' alt='Album three' data-action="https://doce.cc/"/>
-    <img src='images/album-4.png' alt='Album four' data-action="http://tw.yahoo.com"/>
-    <img src='images/album-5.png' alt='Album five' data-action="http://www.bbc.co.uk"/>
-    <img src='images/album-6.png' alt='Album six' data-action="https://medium.com"/>
-    <img src='images/album-7.png' alt='Album seven' data-action="http://www.google.com"/>
-    <img src='images/album-1.png' alt='Album one' data-action="https://facebook.github.io/react/"/>
-    <img src='images/album-2.png' alt='Album two' data-action="http://passer.cc"/>
-    <img src='images/album-3.png' alt='Album three' data-action="https://doce.cc/"/>
-    <img src='images/album-4.png' alt='Album four' data-action="http://tw.yahoo.com"/>
-    <img src='images/album-5.png' alt='Album five' data-action="http://www.bbc.co.uk"/>
-    <img src='images/album-6.png' alt='Album six' data-action="https://medium.com"/>
-    <img src='images/album-7.png' alt='Album seven' data-action="http://www.google.com"/>
-
+    <img
+      src='images/album-1.png'
+      alt='Album one'
+      data-action={fn}
+      data-title='经历市场考验的协作1'
+      data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+      />
+    <img
+      src='images/album-2.png'
+      alt='Album two'
+      data-action="http://passer.cc"
+      data-title='经历市场考验的协作2'
+      data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+      />
+    <img
+      src='images/album-3.png'
+      alt='Album three'
+      data-action="https://doce.cc/"
+      data-title='经历市场考验的协作3'
+      data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+      />
+    <img
+      src='images/album-4.png'
+      alt='Album four'
+      data-action="http://tw.yahoo.com"
+      data-title='经历市场考验的协作4'
+      data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+      />
   </Coverflow>,
 
   document.querySelector('.example_1')
@@ -54,6 +55,8 @@ ReactDOM.render(
 ReactDOM.render(
   <StyleRoot>
   <Coverflow
+    imageWidth={500}
+    imageScale={0.8}
     displayQuantityOfSide={2}
     navigation={true}
     enableHeading={true}
@@ -69,10 +72,34 @@ ReactDOM.render(
       }
     }}
     >
-    <img src='images/album-1.png' alt='Album one' data-action="https://facebook.github.io/react/"/>
-    <img src='images/album-2.png' alt='Album two' data-action="http://passer.cc"/>
-    <img src='images/album-3.png' alt='Album three' data-action="https://doce.cc/"/>
-    <img src='images/album-4.png' alt='Album four' data-action="http://tw.yahoo.com"/>
+    <img
+      src='images/album-1.png'
+      alt='Album one'
+      data-action="https://facebook.github.io/react/"
+      data-title='经历市场考验的协作'
+      data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+      />
+    <img
+      src='images/album-2.png'
+      alt='Album two'
+      data-action="http://passer.cc"
+      data-title='经历市场考验的协作'
+      data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+      />
+    <img
+      src='images/album-3.png'
+      alt='Album three'
+      data-action="https://doce.cc/"
+      data-title='经历市场考验的协作'
+      data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+      />
+    <img
+      src='images/album-4.png'
+      alt='Album four'
+      data-action="http://tw.yahoo.com"
+      data-title='经历市场考验的协作'
+      data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+      />
   </Coverflow>
   </StyleRoot>
   ,
@@ -108,24 +135,92 @@ class Container extends Component {
         </div>
 
         <Coverflow
-          width={960}
+          width={980}
           height={480}
+          imageWidth={500}
+          imageScale={0.8}
           displayQuantityOfSide={2}
           navigation={true}
           enableHeading={false}
           active={this.state.active}
           >
-          <img src='images/album-1.png' alt='Album one' data-action={fn} />
-          <img src='images/album-2.png' alt='Album two' data-action="http://passer.cc"/>
-          <img src='images/album-3.png' alt='Album three' data-action="https://doce.cc/"/>
-          <img src='images/album-4.png' alt='Album four' data-action="http://tw.yahoo.com"/>
-          <img src='images/album-5.png' alt='Album five' data-action="http://www.bbc.co.uk"/>
-          <img src='images/album-6.png' alt='Album six' data-action="https://medium.com"/>
-          <img src='images/album-7.png' alt='Album seven' data-action="http://www.google.com"/>
-          <img src='images/album-1.png' alt='Album one' data-action="https://facebook.github.io/react/"/>
-          <img src='images/album-2.png' alt='Album two' data-action="http://passer.cc"/>
-          <img src='images/album-3.png' alt='Album three' data-action="https://doce.cc/"/>
-          <img src='images/album-4.png' alt='Album four' data-action="http://tw.yahoo.com"/>
+          <img
+            src='images/album-1.png'
+            alt='Album one'
+            data-action={fn}
+            data-title='经历市场考验的协作'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-2.png'
+            alt='Album two'
+            data-action="http://passer.cc"
+            data-title='经历市场考验的协作2'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-3.png'
+            alt='Album three'
+            data-action="https://doce.cc/"
+            data-title='经历市场考验的协作3'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-4.png'
+            alt='Album four'
+            data-action="http://tw.yahoo.com"
+            data-title='经历市场考验的协作4'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-5.png'
+            alt='Album five'
+            data-action="http://www.bbc.co.uk"
+            data-title='经历市场考验的协作5'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-6.png'
+            alt='Album six'
+            data-action="https://medium.com"
+            data-title='经历市场考验的协作'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-7.png'
+            alt='Album seven'
+            data-action="http://www.google.com"
+            data-title='经历市场考验的协作'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-1.png'
+            alt='Album one'
+            data-action="https://facebook.github.io/react/"
+            data-title='经历市场考验的协作'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-2.png'
+            alt='Album two'
+            data-action="http://passer.cc"
+            data-title='经历市场考验的协作'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-3.png'
+            alt='Album three'
+            data-action="https://doce.cc/"
+            data-title='经历市场考验的协作'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
+          <img
+            src='images/album-4.png'
+            alt='Album four'
+            data-action="http://tw.yahoo.com"
+            data-title='经历市场考验的协作'
+            data-desc='Coding Enterprise 基于 Coding.net 社区版升级而来。Coding.net 社区版拥有 50,0000 使用者，80,0000 项目，经历市场考验才能为您提供专业的企业协作。'
+            />
         </Coverflow>
       </div>
     );
